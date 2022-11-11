@@ -1,0 +1,68 @@
+<!-- index.hbs -->
+
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{{!-- Create a table --}}
+<table id="school-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td>{{this.school_id}}</td>
+            <td>{{this.school_name}}</td>
+            <td><button onclick="deletePerson({{this.school_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./public/js/delete_person.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>To add a new school, please enter their information below and click 'Submit'!</p>
+<form id="add-school-ajax">
+    <label for="school_name">School Name: </label>
+    <input type="text" name="school_name" id="school_name">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./public/js/add_person.js"></script>
+
+<h2>Adding School using an HTML form</h2>
+<p>To add a new school, please enter their information below and click `Submit`!</p>
+<form id="add-school-form" method="POST" action="/add-school-form">
+    <label for="input-school_name">School Name: </label>
+    <input type="text" name="input-school_name" id="input-school_name">
+
+    <input type="submit">
+</form>
+
+<h2>Search Using an HTML Form</h2>
+<p>Search by School Name</p>
+<form id="search-school-html" method='GET' action='/'>
+    <label for="input-school_name-search">Search by Last Name: </label>
+    <input type="text" name="sname" id="input-schoo_name-html-search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
